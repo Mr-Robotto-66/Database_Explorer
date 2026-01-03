@@ -20,7 +20,7 @@
                         <circle cx="10" cy="18" r="1.5" fill="currentColor"/>
                     </svg>
                     <div class="logo-text">
-                        <h1>Database Explorers <span class="subtitle">BCGW Tools Collection</span></h1>
+                        <h1>Database Explorers <span class="subtitle">ArcPro tool to create interactive database explorers</span></h1>
                         <span class="last-updated">Last Updated: January 03, 2026</span>
                     </div>
                 </div>
@@ -54,22 +54,51 @@
         <main class="landing-main">
             <div class="intro-section">
                 <h2>Welcome to Database Explorers</h2>
-                <p>Interactive tools for exploring and managing BC Geographic Warehouse (BCGW) databases. Select an explorer below to get started.</p>
+                <p>This tool can be run on any GDB or SDE to create an interactive database Explorer like the ones shown below.</p>
             </div>
 
             <div class="apps-grid">
+                <!-- Basemapping and Boundaries Explorer Card -->
+                <a href="BCGW Basemapping and Boundaries Explorer/" class="app-card">
+                    <div class="card-icon">
+                        <img src="images/Basemapping.png" alt="Basemapping and Boundaries" width="48" height="48">
+                    </div>
+                    <div class="card-content">
+                        <h3>BCGW Basemapping and Boundaries Explorer</h3>
+                        <p>Explore basemapping and administrative boundaries tables and feature classes within the BCGW</p>
+                        <div class="card-features">
+                            <span class="feature-tag">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                Boundaries
+                            </span>
+                            <span class="feature-tag">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                                    <line x1="8" y1="2" x2="8" y2="18"/>
+                                    <line x1="16" y1="6" x2="16" y2="22"/>
+                                </svg>
+                                Basemaps
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </a>
+
                 <!-- Forest Explorer Card -->
                 <a href="BCGW Forest Explorer/" class="app-card">
                     <div class="card-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5"/>
-                            <path d="M2 12l10 5 10-5"/>
-                        </svg>
+                        <img src="images/Forest.png" alt="Forest Explorer" width="48" height="48">
                     </div>
                     <div class="card-content">
                         <h3>BCGW Forest Explorer</h3>
-                        <p>Explore forest-related database tables with advanced search, filtering, and export capabilities.</p>
+                        <p>Explore forest-related database tables and feature classes within the BCGW</p>
                         <div class="card-features">
                             <span class="feature-tag">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -82,7 +111,7 @@
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                                 </svg>
-                                Data Visualization
+                                Forest data
                             </span>
                         </div>
                     </div>
@@ -96,15 +125,11 @@
                 <!-- Resource and Ecology Explorer Card -->
                 <a href="BCGW Resource and Ecology Explorer/" class="app-card">
                     <div class="card-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                            <line x1="12" y1="22.08" x2="12" y2="12"/>
-                        </svg>
+                        <img src="images/Resource and Ecology.png" alt="Resource and Ecology Explorer" width="48" height="48">
                     </div>
                     <div class="card-content">
                         <h3>BCGW Resource and Ecology Explorer</h3>
-                        <p>Navigate resource management and ecology database tables with comprehensive filtering tools.</p>
+                        <p>Navigate resource management and ecology database tables and feature classes with comprehensive filtering tools.</p>
                         <div class="card-features">
                             <span class="feature-tag">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

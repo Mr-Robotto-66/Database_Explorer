@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCGW Basemapping and Boundaries - Database Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16"/>
+                        <circle cx="8" cy="6" r="1.5" fill="currentColor"/>
+                        <circle cx="14" cy="12" r="1.5" fill="currentColor"/>
+                        <circle cx="10" cy="18" r="1.5" fill="currentColor"/>
+                    </svg>
+                    <div class="logo-text">
+                        <h1>BCGW Basemapping and Boundaries <span class="subtitle">Database Explorer</span></h1>
+                        <span class="last-updated">Last Updated: January 03, 2026</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="stats" id="stats"></div>
+                    <div class="copy-format-selector">
+                        <label for="copyFormatSelect" class="copy-format-label">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                            Copy Format:
+                        </label>
+                        <select id="copyFormatSelect" class="copy-format-select">
+                            <option value="comma">Comma (a, b, c)</option>
+                            <option value="newline">Newline</option>
+                            <option value="sql-text">SQL Text ('a', 'b')</option>
+                        </select>
+                    </div>
+                    <div class="theme-toggle">
+                        <span class="theme-toggle-icon moon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                            </svg>
+                        </span>
+                        <button class="theme-toggle-btn" id="themeToggle" title="Toggle light/dark mode"></button>
+                        <span class="theme-toggle-icon sun">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"/>
+                                <line x1="12" y1="1" x2="12" y2="3"/>
+                                <line x1="12" y1="21" x2="12" y2="23"/>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                                <line x1="1" y1="12" x2="3" y2="12"/>
+                                <line x1="21" y1="12" x2="23" y2="12"/>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-wrapper">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search tables, feature classes, or fields..." autocomplete="off">
+                <div class="search-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="tables">Tables</button>
+                    <button class="filter-btn" data-filter="feature_classes">Feature Classes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="section-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18M9 21V9"/>
+                        </svg>
+                        Tables
+                        <span class="count" id="tableCount">0</span>
+                    </h3>
+                    <ul class="dataset-list" id="tableList"></ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="section-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                            <polyline points="2 17 12 22 22 17"/>
+                            <polyline points="2 12 12 17 22 12"/>
+                        </svg>
+                        Feature Classes
+                        <span class="count" id="fcCount">0</span>
+                    </h3>
+                    <ul class="dataset-list" id="fcList"></ul>
+                </div>
+            </aside>
+
+            <!-- Detail Panel -->
+            <section class="detail-panel" id="detailPanel">
+                <div class="empty-state" id="emptyState">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    <h2>Select a dataset</h2>
+                    <p>Choose a table or feature class from the sidebar to view its fields and values</p>
+                </div>
+                
+                <div class="dataset-details hidden" id="datasetDetails">
+                    <div class="detail-header">
+                        <div class="dataset-title">
+                            <span class="dataset-type-badge" id="datasetType">TABLE</span>
+                            <h2 id="datasetName">Dataset Name</h2>
+                        </div>
+                        <div class="dataset-meta">
+                            <span class="meta-item" id="rowCount">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                                0 rows
+                            </span>
+                            <span class="meta-item" id="fieldCount">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="8" y1="6" x2="21" y2="6"/>
+                                    <line x1="8" y1="12" x2="21" y2="12"/>
+                                    <line x1="8" y1="18" x2="21" y2="18"/>
+                                    <line x1="3" y1="6" x2="3.01" y2="6"/>
+                                    <line x1="3" y1="12" x2="3.01" y2="12"/>
+                                    <line x1="3" y1="18" x2="3.01" y2="18"/>
+                                </svg>
+                                0 fields
+                            </span>
+                            <span class="meta-item geometry-type hidden" id="geometryType">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                                </svg>
+                                Polygon
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field-search-container">
+                        <input type="text" id="fieldSearch" placeholder="Filter fields...">
+                    </div>
+
+                    <div class="fields-container" id="fieldsContainer"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
